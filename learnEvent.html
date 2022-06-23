@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karavansaray Event</title>
+    <style>
+        body * {
+          margin: 8px;
+          padding: 5px;
+          border: 2px solid #50f9ff;
+          width: 60%;
+        }
+        .contents {
+          top: 50%;
+          left: 50%;
+          color: antiquewhite;
+          transform: translate(30%, 30%);
+          border: 2px solid #ff006a;
+          padding: 15px;
+        }
+      
+        #generateButton {
+          margin-top: 5px;
+          margin-bottom: 15px;;
+        }
+        div {
+            display: block;
+        }
+    </style>
+</head>
+<body onload="welcome()">
+
+    <div class="contents" align="center" hidden>
+        <button id="incrementButton">Tekan Aku :)</button>
+        <h3>Kamu sudah menekan tombol di atas sebanyak <span id="count">0</span></h3>
+        
+        <div class="buttons" align="center">
+            <h3 id="caption">Silakan tekan salah satu tombol di bawah...</h3>
+            <button class="button" id="tombol">Tombol Custom Event</button>
+        </div>
+        
+        <div id="SpaceX" onclick="alert('ELEMEN LANGIT')" align="center">LANGIT
+            <div id="Gala Sky" onclick="alert('ELEMEN LUAR')" align="center">LUAR
+                <div id="Roof Top" onclick="alert('ELEMEN TENGAH')" align="center">TENGAH
+                  <div id="Inside Home" onclick="alert('ELEMEN DALAM')" align="center">DALAM</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let hiddenContent = document.querySelector(".contents");
+        
+        function welcome() {
+            hiddenContent.removeAttribute('hidden');
+        }
+
+        const incrementButton = document.querySelector("#incrementButton");
+
+        const count = document.querySelector("#count");
+        
+        let counter = 0;
+        incrementButton.addEventListener("click", function() {
+            counter++;
+            count.innerHTML = counter;
+
+            if(counter === 7) 
+            {
+                let spawnMessage       = document.createElement("h2");
+                spawnMessage.innerText = "Hai, kamu sudah menekan tombol sebanyak 7 kali"; 
+                hiddenContent.appendChild(spawnMessage);
+
+                let spawnImage = document.createElement("img");
+                spawnImage.src = "https://i.pinimg.com/originals/ac/31/ce/ac31ce69536758420ed8a30d5cf08b8d.jpg";
+                hiddenContent.appendChild(spawnImage);
+            }
+        });
+
+
+        /* Start to Build my own Custom Event */
+        let changeCaption = new Event('changeCaption');
+
+        window.addEventListener('load', function() {
+          let tombol = document.getElementById('tombol');
+          tombol.addEventListener('changeCaption', customEventHandler);
+          tombol.addEventListener('click', function() {
+              tombol.dispatchEvent(changeCaption);
+          });
+        });
+        
+        function customEventHandler(ev) {
+          console.log('Event ' + ev.type + ' telah dijalankan');
+          let caption       = document.getElementById('caption');
+          caption.innerText = 'Anda telah membangkitkan custom event';
+        }
+        /* End of Build my own Custom Event */
+
+        const divs = document.getElementsByTagName('div');
+        for (let el of divs) {
+          el.addEventListener('click', function() {
+            alert('ELEMEN ' + el.getAttribute('id').toLocaleLowerCase());
+          }, true);
+        }
+        // Deprecated code
+        // document.body.onload = welcome();
+        // window.addEventListener('load', welcome);
+        // document.getElementById('incrementButton').addEventListener('click', increment);
+    </script>
+</body>
+</html>

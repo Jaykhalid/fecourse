@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Form Alpler 2023</title>
+        <style>
+            .contents {
+              justify-content: center;
+              position: static;
+              top: 50%;
+              left: 50%;
+              border: 2px solid #50ffff;
+              padding : 15px;
+            }
+            .form-element {
+              margin: 58px;
+              text-align: center;
+            }
+
+            #notifRemainChar {
+              visibility: hidden;
+            }
+        </style>
+    </head>
+
+    <body>
+        <!-- <div class="contents">
+          <h2 align="center">Isi data diri</h2>
+          <div class="formContent">
+            <form id="formDataDiri">
+              <div class="form-element">
+                <label for="inputNama">Nama :</label><br>
+                <input type="text" id="inputNama" name="nama" placeholder="Nama Anda" required><br>
+              </div>
+              <div class="form-element">
+                <label for="inputDomisili">Domisili :</label><br>
+                <input type="text" id="inputDomisili" name="domisili" placeholder="Domisili Anda" required><br>
+              </div>
+              <div class="form-element">
+                <input type="submit" value="Submit Data">
+              </div>
+            </form>
+          </div>
+          <h3 id="messageAfterSubmit"></h3>
+        </div>
+     -->
+        
+     <div class="contents">
+        <h2 align="center"><b>Input Event Form</b></h2>
+        <div class="formContent">
+          <form id="formDataDiri" autocomplete="off">
+            <div class="form-element" id="fieldName">
+              <label for="inputNama">Nama Panggilan:</label><br>
+              <input id="inputNama" type="text" name="nama" placeholder="Nama panggilan Anda" maxlength="17"><br>
+              <label id="notifRemainChar">Sisa karakter : <span id="sisaKarakter"></span></label>
+            </div>
+            <div class="form-element" id="fieldCopy">
+              <label for="inputCopy"><i>Copy</i> tulisan ini:</label><br>
+              <input id="inputCopy" type="text" name="copy" value="KizilElma!" disabled><br>
+            </div>
+            <div class="form-element" id="fieldPaste">
+              <label for="inputPaste"><i>Paste</i> tulisan di sini:</label><br>
+              <input id="inputPaste" type="text" name="paste" placeholder="Paste sesuatu di sini"><br>
+            </div>
+            <div class="form-element" id="fieldCaptcha">
+              <label for="inputCaptcha">Tulis <i>captcha</i> berikut:</label><br>
+              <img src="https://i.ibb.co/yy59QPB/Captcha.png" alt="Captcha"><br>
+              <input id="inputCaptcha" type="text" name="captcha" placeholder="Tulis captcha di sini"><br>
+              <p>Tekan Enter pada keyboard jika sudah selesai menulis <i>captcha</i></p>
+            </div>
+            <div class="form-element" align="center">
+              <input id="submitButton" type="submit" value="Submit Data" disabled>
+            </div>
+          </form>
+        </div>
+      </div>
+
+        <script>
+          document.addEventListener('DOMContentLoaded', function () {
+            const inputMaxLengthOnLoad = document.getElementById('inputNama').maxLength;
+            document.getElementById('sisaKarakter').innerText = inputMaxLengthOnLoad;
+          });
+          
+          document.getElementById('inputNama').addEventListener('input', function () {
+            const jumlahKarakterDiketik = document.getElementById('inputNama').value.length;
+            const jumlahKarakterMaksimal = document.getElementById('inputNama').maxLength;
+
+            console.log('jumlahKarakterDiketik: ', jumlahKarakterDiketik);
+            console.log('jumlahKarakterMaksimal: ', jumlahKarakterMaksimal);
+            const sisaKarakterUpdate = jumlahKarakterMaksimal - jumlahKarakterDiketik;
+            document.getElementById('sisaKarakter').innerText = sisaKarakterUpdate.toString();
+
+            if (sisaKarakterUpdate === 0) {
+              document.getElementById('sisaKarakter').innerText = 'Batas maksimal tercapai!';
+            } else if (sisaKarakterUpdate <= 5) {
+              document.getElementById('notifRemainChar').style.color = '#ff006a';
+            } else {
+              document.getElementById('notifRemainChar').style.color = '#2fffaf';
+            }
+          });
+
+          document.getElementById('inputNama').addEventListener('focus', function () {
+            console.log('inputNama: focus');
+            document.getElementById('notifRemainChar').style.visibility = 'visible';
+          });
+
+          document.getElementById('inputNama').addEventListener('blur', function () {
+            console.log('inputNama: blur');
+            document.getElementById('notifRemainChar').style.visibility = 'hidden';
+          });
+
+          document.getElementById('inputCaptcha').addEventListener('change', function() {
+            const captchaValue  = document.getElementById('inputCaptcha').value;
+            const disabledBtn   = document.getElementById('submitButton');
+            
+            if(captchaValue === 'PRNU') {
+               disabledBtn.removeAttribute('disabled')
+            }
+            else {
+              disabledBtn.setAttribute('disabled', '') 
+            } 
+          })
+
+          document.getElementById('formDataDiri').addEventListener('submit', function(e) {
+            const captchaValue = document.getElementById('inputCaptcha').value;
+
+            if(captchaValue === 'PRNU') {
+              alert('Hay Mashallah, Evlat!');
+            }
+            else {
+              alert('iyi deneme, yavaş-yavaş..')
+            }
+            
+            e,preventDefault();
+          })
+
+          document.getElementById('inputCopy').addEventListener('copy', function() {
+            alert('Teks telah ter-copy');
+          })
+          document.getElementById('inputPaste').addEventListener('paste', function() {
+            alert('Berhasil paste teks');
+          })
+          // let submitAction = document.getElementById('formDataDiri');
+          
+          // submitAction.addEventListener('submit', function(e) {
+          //   let nama      = document.getElementById('inputNama').value;
+          //   let domisili  = document.getElementById('inputDomisili').value;
+          //   let message   = `Hoşgeldin ${nama}, ${domisili} Yiğitlerim!`;
+            
+          //   document.getElementById('messageAfterSubmit').innerText = message;
+          //   e.preventDefault();
+          // })
+        </script>
+    </body>
+</html>
