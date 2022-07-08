@@ -1,26 +1,55 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+@font-face {
+    font-family: Quicksand;
+    src: url(../assets//Quicksand/Quicksand-Regular.ttf);
+    src: url(../assets//Quicksand/Quicksand-Bold.ttf) format(ttf), 
+         url(../assets//Quicksand/Quicksand-Regular.ttf) format(truetype);
+}
 
 * {
     box-sizing: border-box;
 }
 
 html, body {
-    font-family: Raleway, sans-serif;
+    font-family: Quicksand, sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
 header {
-    background: #5F30E2;
+    background: #2fffaf;
     padding: 16px;
+    position: sticky;
     color: white;
+}
+header h1 {
+    background: white;
+    padding: 13px 0 13px 30px;
+    margin-left: 33px;
+    width: 360px;
+    letter-spacing: 1.3px;
+    border-radius: 991px;
+    color: #04db89;
+}
+
+#logo {
+    width: 40px;
+    margin-left:7px;
+    vertical-align: middle;
+}
+
+#render-todo {
+    margin: 24px 0 90px 0;
+    border-radius: 17px;
+    padding: 45px 45px 120px;
 }
 
 .wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
+    border-radius: 17px;
+    margin-bottom: 101px;
 }
 
 .wrapper .container {
@@ -28,9 +57,9 @@ header {
     border-radius: 8px;
     margin: 16px;
     background: #F8F9FA;
-    padding: 16px;
+    padding: 36px;
     flex-grow: 1;
-    height: fit-content;
+    height: 100%;   
 }
 
 
@@ -53,19 +82,20 @@ header {
 
 .form {
     display: flex;
-    padding: 16px;
+    padding: 26px;
     flex-direction: column;
-    height: 300px;
+    height: auto;
     border-radius: 16px;
 }
 
 .form-group {
     display: flex;
     flex-direction: column;
+    margin-top: 20px;
 }
 
 .form-group label {
-    margin-bottom: 4px;
+    margin-bottom: 17px;
     font-size: 18px;
     font-weight: lighter;
 }
@@ -74,15 +104,15 @@ header {
     box-shadow: 0 5px 10px rgba(154, 160, 185, .05), 0 15px 40px rgba(166, 173, 201, .2);
 }
 
-input[type=text], input[type=date] {
+input[type=text], input[type=date], input[type=time], input[type=number] {
     font-family: Raleway, sans-serif;
     background: #F5F1FF;
-    border: 2px solid #9475EA;
+    border: 2px solid #40e7a7;
     border-radius: 8px;
     padding: 16px;
     box-sizing: border-box;
     margin-bottom: 8px;
-    font-size: 24px;
+    font-size: 19px;
 }
 
 .btn-submit {
@@ -90,16 +120,18 @@ input[type=text], input[type=date] {
     font-family: Raleway, sans-serif;
     border-radius: 16px;
     padding: 12px 24px;
-    border: 2px solid #5F30E2;
-    color: black;
-    font-size: 24px;
+    border: 2px solid #1cffa8;
+    color: #05e4b4;
+    font-size: 19px;
+    font-weight: 600;
+    letter-spacing: 1.3px;
     margin-top: auto;
     align-self: flex-end;
     cursor: pointer;
 }
 
 .btn-submit:hover {
-    background: #5F30E2;
+    background: #1cffa8;
     color: white;
 }
 
@@ -107,12 +139,16 @@ input[type=text], input[type=date], .btn-submit:focus {
     outline: none;
 }
 
+.list-item {
+    width: 100%;
+}
+
 .text-center {
     text-align: center;
 }
 
 .form-title {
-    margin: auto 0;
+    margin: 21px 0;
 }
 
 .check-button {
@@ -170,7 +206,51 @@ input[type=text], input[type=date], .btn-submit:focus {
 
 @media only screen and (max-width: 1024px) {
     .wrapper {
-        margin: 0;
+        margin-bottom: 101px;
+    }
+    header h1 {
+        width: 360px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    #render-todo {
+        width: 100%;
+        padding: 45px 45px 90px;
+    }
+
+    .wrapper .container {
+        width: 80%;
+    }
+
+    .list-item {
+        width: 100%;
+    }
+
+    .form {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 524px) {
+    .wrapper {
+        margin-bottom: 101px;
+    }
+
+    #logo {
+        width: 40px;
+        margin-left:7px;
+        vertical-align: middle;
+    }
+
+    header h1 {
+        font-size: 30px;
+        width: 330px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    #render-todo {
+        width: 100%;
+        padding: 45px 45px 90px;
     }
 
     .wrapper .container {
@@ -178,7 +258,7 @@ input[type=text], input[type=date], .btn-submit:focus {
     }
 
     .list-item {
-        width: 90%;
+        width: 150%;
     }
 
     .form {

@@ -1,39 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Todo Apps</title>
-  <link rel="stylesheet" href="css/style.css">
-</head>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"">
+    <title>Todo App</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
 
-<body>
-<header>
-  <h1>Todo List</h1>
-</header>
+  <body>
+    <header>
+      <h1>  ToDo Continue
+        <img src="assets/book.png" id="logo"></img>
+      </h1>
+    </header>
 
-<div class="wrapper">
-  <div class="container bg-white shadow" id="add-todo">
-    <h2 class="container-header text-center">Tambah yang harus dilakukan</h2>
-    <form class="form" action="#" id="form">
-      <div class="form-group form-title">
-        <label for="title">Masukkan hal yang akan dilakukan</label>
-        <input type="text" id="title" name="title" required>
+    <div class="wrapper">
+      <div class="container bg-white shadow" id="add-todo">
+        <h2 class="container-header text-center activities">
+          <span>Kelola Daftar Buku-mu</span> 
+          <span>Dengan Baik</span> 
+          <span>Disini !</span>
+        </h2>
+        <form class="form" action="#" id="form">
+          <div class="form-group form-title">
+            <label for="title">Tambahkan Buku Baru</label>
+            <input type="text" placeholder="Judul Buku . . ." id="title" name="title" required>
+          </div>
+          <div class="form-group form-author">
+            <label for="author">Penulis</label>
+            <input type="text" placeholder="Ditulis Oleh . . ." id="author" name="author" required>
+          </div>
+          
+          <div class="form-group form-author">
+            <label for="author">Tahun Terbit</label>
+            <input type="number" placeholder="Ketik Angka" id="author" name="author" required>
+          </div>
+          <div class="form-group form-title">
+            <label for="date">Tanggal Mulai</label>
+            <input type="date" id="date" name="date" required>
+          </div>
+          <input type="submit" value="Submit" name="Submit" class="btn-submit">
+        </form>
+
+        <div class="wrapper bg-white shadow" id="render-todo">
+          <h2 class="container-header">Antrean Aktivitas Anda</h2>
+            <div class="list-item" id="todos">
+              <!-- Inject data TODOs here -->
+            </div>
+        </div>
+        <div class="wrapper bg-white shadow" id="render-todo">
+          <h2 class="container-header">Selesai & Tuntas</h2>
+            <div class="list-item" id="completed-todos">
+              <!-- Inject data TODOs here -->
+            </div>
+        </div>
       </div>
-      <div class="form-group form-title">
-        <label for="date">Masukkan tanggal harus selesai</label>
-        <input type="date" id="date" name="date" required>
-      </div>
-      <input type="submit" value="Submit" name="Submit" class="btn-submit">
-    </form>
-  </div>
-  
-  <div id="render-todo">
-    
-  </div>
-
-
-  <script src="js/script.js" type="text/javascript"></script>
-</body>
+    </div>  
+    <script src="js/script.js" type="text/javascript"></script>
+  </body>
 </html>
