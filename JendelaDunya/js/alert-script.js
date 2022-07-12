@@ -1,12 +1,10 @@
-const cuteAlert = ({
+const myAlert = ({
   type,
   title,
   message,
   img,
   buttonText = 'OK',
   confirmText = 'OK',
-  vibrate = [],
-  playSound = null,
   cancelText = 'Cancel',
   closeStyle,
 }) => {
@@ -24,7 +22,7 @@ const cuteAlert = ({
     let src = '';
 
     for (let script of scripts) {
-      if (script.src.includes('cute-alert.js')) {
+      if (script.src.includes('script.js')) {
         src = script.src.substring(0, script.src.lastIndexOf('/'));
       }
     }
@@ -36,19 +34,10 @@ const cuteAlert = ({
     if (type === 'question') {
       btnTemplate = `
       <div class="question-buttons">
-        <button class="confirm-button ${type}-bg ${type}-btn">${confirmText}</button>
-        <button class="cancel-button error-bg error-btn">${cancelText}</button>
+        <button class="confirm-button">${confirmText}</button>
+        <button class="cancel-button">${cancelText}</button>
       </div>
       `;
-    }
-
-    if (vibrate.length > 0) {
-      navigator.vibrate(vibrate);
-    }
-
-    if (playSound !== null) {
-      let sound = new Audio(playSound);
-      sound.play();
     }
 
     const template = `
@@ -59,7 +48,7 @@ const cuteAlert = ({
             closeStyle === 'circle'
               ? 'alert-close-circle'
               : 'alert-close-default'
-          }">X</span>
+          }"></span>
           ${img !== '' ? '<img class="alert-img" src="' + src + '/' + img + '" />' : ''}
         </div>
         <div class="alert-body">
@@ -110,7 +99,7 @@ const cuteAlert = ({
   });
 };
 
-const cuteToast = ({ type, title, message, timer = 5000,  vibrate = [], playSound = null }) => {
+const myToast = ({ type, title, message, img, timer}) => {
   return new Promise(resolve => {
     const body = document.querySelector('body');
 
@@ -119,7 +108,7 @@ const cuteToast = ({ type, title, message, timer = 5000,  vibrate = [], playSoun
     let src = '';
 
     for (let script of scripts) {
-      if (script.src.includes('cute-alert.js')) {
+      if (script.src.includes('script.js')) {
         src = script.src.substring(0, script.src.lastIndexOf('/'));
       }
     }
@@ -141,15 +130,13 @@ const cuteToast = ({ type, title, message, timer = 5000,  vibrate = [], playSoun
       <div>
         <div class="toast-frame">
           <div class="toast-body">
-            <img class="toast-body-img" src="${src}/img/${type}.svg" />'
+            <img class="toast-body-img" src="assets/images/${img}" />
             <div class="toast-body-content">
               <span class="toast-title">${title}</span>
               <span class="toast-message">${message}</span>
             </div>
-            <div class="toast-close" id="${toastId}-toast-close">X</div>
           </div>
         </div>
-        <div class="toast-timer ${type}-timer"  style="animation: timer${timer}ms linear;>
       </div>
     </div>
     `;
@@ -164,21 +151,12 @@ const cuteToast = ({ type, title, message, timer = 5000,  vibrate = [], playSoun
 
     const toastContent = document.getElementById(`${toastId}-toast-content`);
 
-    if (vibrate.length > 0) {
-      navigator.vibrate(vibrate);
-    }
-
-    if (playSound !== null) {
-      let sound = new Audio(playSound);
-      sound.play();
-    }
-
     setTimeout(() => {
-      toastContent.remove();
+      toastContent.remove()
       resolve();
     }, timer);
 
-    const toastClose = document.getElementById(`${toastId}-toast-close`);
+    const toastClose = document.getElementById(`${toastId}-toast-content`);
 
     toastClose.addEventListener('click', () => {
       toastContent.remove();

@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function () {
             
         for (let book of arrayOfBookObj) {
             let bookshelfCardEl = document.createElement("div");
-            bookshelfCardEl.setAttribute('class', "row-article mx-md-auto my-md-2 item shadow");
+            bookshelfCardEl.setAttribute('class', "row-article mx-md-auto my-sm-3 my-md-4 item shadow");
             let eachBookObjEl = document.createElement('article');
             eachBookObjEl.classList.add('col-sm-12', 'col-lg-10');
             
@@ -144,7 +144,43 @@ document.addEventListener('DOMContentLoaded', function () {
                 removeBtn.id        = book.id,
                 removeBtn.classList.add('remove-outline-button');
 
-                removeBtn.addEventListener("click", removeBooks);
+                removeBtn.addEventListener("click", (e) => {
+                    myAlert({
+                        type: "question",
+                        title: "Yakin mau dihapus ?",
+                        message: `Buku <strong><em>${book.title}</em></strong> mungkin tidak akan kembali lagi`,
+                        confirmText: "Ya",
+                        cancelText: "Tidak",
+                        img: "../assets/images/question.svg",
+                    });
+
+                    let cancelBtn  = document.querySelector('.cancel-button'); 
+                    let confirmBtn = document.querySelector(".confirm-button");
+                    
+                    cancelBtn.addEventListener('mouseover', () => {
+                        btnAnimation();
+                    });
+                    cancelBtn.addEventListener('mouseout', () => {
+                        btnAnimationOut();
+                    });
+
+                    function btnAnimation() {
+                        confirmBtn.classList.toggle("btn-effect")
+                    }
+                    function btnAnimationOut() {
+                        confirmBtn.classList.toggle("btn-effect")
+                    }
+
+                    confirmBtn.addEventListener('click', () => {
+                        removeBooks(e);
+                        myAlert({
+                            img:     "../assets/images/success.svg",
+                            type:    "success",
+                            title:   "Terhapus",
+                            message: `Ucapkan Selamat Tinggal pada buku <strong><em>${book.title}</em></strong>`,
+                        });
+                    });
+                });
                 
                 parentElBtnInReadedList.appendChild(undoBtn),
                 parentElBtnInReadedList.appendChild(removeBtn),
@@ -168,7 +204,42 @@ document.addEventListener('DOMContentLoaded', function () {
                 removeBtn.id        = book.id,
                 removeBtn.classList.add('remove-button');
 
-                removeBtn.addEventListener("click", removeBooks);
+                removeBtn.addEventListener("click", (e) => {
+                    myAlert({
+                        type: "question",
+                        title: "Yakin mau dihapus ?",
+                        message: `Buku <strong><em>${book.title}</em></strong> mungkin tidak akan kembali lagi`,
+                        confirmText: "Ya",
+                        cancelText: "Tidak",
+                        img: "../assets/images/question.svg",
+                    });
+                    let cancelBtn  = document.querySelector('.cancel-button'); // bug mitigation if delete button does not exist 
+                    let confirmBtn = document.querySelector(".confirm-button");
+                    
+                    cancelBtn.addEventListener('mouseover', () => {
+                        btnAnimation();
+                    });
+                    cancelBtn.addEventListener('mouseout', () => {
+                        btnAnimationOut();
+                    });
+
+                    function btnAnimation() {
+                        confirmBtn.classList.toggle("btn-effect")
+                    }
+                    function btnAnimationOut() {
+                        confirmBtn.classList.toggle("btn-effect")
+                    }
+
+                    confirmBtn.addEventListener('click', () => {
+                        removeBooks(e)
+                        myAlert({
+                            img:     "../assets/images/success.svg",
+                            type:    "success",
+                            title:   "Terhapus",
+                            message: `Ucapkan Selamat Tinggal pada buku <strong><em>${book.title}</em></strong>`,
+                        });
+                    });
+                });
 
                 parentElBtn.appendChild(completedBtn),
                 parentElBtn.appendChild(removeBtn),
@@ -196,16 +267,16 @@ document.addEventListener('DOMContentLoaded', function () {
             searchForm = document.getElementById("searchBookForm");
             bookForm.addEventListener("submit", (e) => {
                 addBookNotRead(e);
-                cuteAlert({
-                    type: "success",
-                    title: "Magnifico!",
-                    message: "Buku-mu telah berhasil disimpan",
-                    buttonText: "Yeay",
-                    src: 'img/success.svg'
+                myToast({
+                  img:      'playlist_add_check.svg',
+                  type:     "success",
+                  timer:    5000,
+                  title:    "Magnifico !",
+                  message:  "Buku-mu telah berhasil disimpan",
                 });
             });
             searchForm.addEventListener("submit", findYourBook);
-
+            searchForm.firstElementChild.addEventListener("input", findYourBook);
             document.addEventListener("bookChanged", storages);
     }));
 
